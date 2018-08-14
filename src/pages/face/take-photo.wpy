@@ -1,0 +1,123 @@
+<template>
+  <view class="page">
+    <camera device-position="{{ camera }}" flash="off" binderror="error" class="camera">
+      <cover-view class="camera-cover">
+        <cover-image class="camera-cover-img" src="../../images/face/camera-cover.png" />
+      </cover-view>
+    </camera>
+    
+    <view class="bottom-wrapper">
+      <view class="tips-wrapper">
+        <view>请尽量把人脸放置在提示框内</view>
+        <navigator open-type="navigateBack" class="primary">查看人脸拍摄说明</navigator>
+      </view>
+      <view class="actions-wrapper">
+        <navigator open-type="navigateBack">
+          <image src="../../images/face/icon-cancel.png" class="btn-side"></image>
+        </navigator>
+        <image @tap="takePhoto" src="../../images/face/icon-take.png" class="btn-take"></image>
+        <image @tap="switchCamera" src="../../images/face/icon-camera.png" class="btn-side"></image>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class FaceTakePhoto extends wepy.page {
+    config = {
+      navigationBarTitleText: '拍摄人脸'
+    }
+
+    data = {
+      camera: 'front'
+    }
+
+    methods = {
+      switchCamera () {
+        this.camera = this.camera === 'front' ? 'back' : 'front'
+      },
+      takePhoto () {
+        this.ctx.takePhoto({
+          quality: 'high',
+          success: (res) => {
+            wepy.setStorageSync('faceImage', res.tempImagePath)
+            wepy.navigateTo({
+              url: './confirm'
+            })
+          }
+        })
+      },
+      error(e) {
+        console.log(e.detail)
+      }
+    }
+
+    onLoad () {
+      this.ctx = wx.createCameraContext()
+    }
+
+    onUnload () {
+      wepy.removeStorageSync('faceImage')
+    }
+  }
+</script>
+
+<style lang="less">
+  @textColorTips: #b2b2b2;
+
+  .page {
+    height: 100vh;
+    padding-bottom: 456rpx;
+    background-color: #000;
+  }
+  .camera {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    &-cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      &-img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .bottom-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 456rpx;
+
+    .tips-wrapper {
+      text-align: center;
+      line-height: 2;
+      font-size: 30rpx;
+      color: @textColorTips;
+      padding: 30rpx 0;
+    }
+    .actions-wrapper {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 60rpx 50rpx;
+
+      .btn-take {
+        width: 140rpx;
+        height: 140rpx;
+      }
+      .btn-side {
+        width: 100rpx;
+        height: 100rpx;
+      }
+    }
+  }
+</style>

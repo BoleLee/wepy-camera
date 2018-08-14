@@ -1,0 +1,95 @@
+<template>
+  <view class="page">
+    <view class="sample-wrapper">
+      <image mode="aspectFill" src="../../images/face/sample.png" class="sample-image"></image>
+    </view>
+    <view class="tips-wrapper">
+      <view class="tip-item">
+        <image mode="aspectFill" src="../../images/face/tip-1.png" class="tip-item-image"></image>
+        <view>不能低头仰拍</view>
+      </view>
+      <view class="tip-item">
+        <image mode="aspectFill" src="../../images/face/tip-2.png" class="tip-item-image"></image>
+        <view>不能遮挡面部</view>
+      </view>
+      <view class="tip-item">
+        <image mode="aspectFill" src="../../images/face/tip-3.png" class="tip-item-image"></image>
+        <view>眼镜不能反光</view>
+      </view>
+    </view>
+    <view class="content">
+      <view class="content-title">具体要求</view>
+      <view>
+        请选择光线充足，浅色背景的环境拍照，请拍摄脸部正面照片，角度参考证件照面部所占照片比例，请尽量控制面部在提示框内。
+      </view>
+    </view>
+    <navigator url="./take-photo" class="bottom-btn">
+      <button type="primary">开始拍摄人脸</button>
+    </navigator>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class FaceRule extends wepy.page {
+    config = {
+      navigationBarTitleText: '人脸拍摄说明'
+    }
+  }
+</script>
+
+<style lang="less">
+  @warn: #f00;
+  @primary: #22AD38;
+  @textColor: #353535;
+
+  .page {
+    min-height: 100vh;
+    padding-bottom: 120rpx;
+    background-color: #fff;
+  }
+  .sample-wrapper {
+    padding: 80rpx 0;
+    text-align: center;
+
+    .sample-image {
+      width: 270rpx;
+      height: 330rpx;
+    }
+  }
+  .tips-wrapper {
+    padding: 0 30rpx;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 70rpx;
+
+    .tip-item {
+      color: @warn;
+      font-size: 28rpx;
+      text-align: center;
+
+      &-image {
+        width: 120rpx;
+        height: 120rpx;
+      }
+    }
+  }
+  .content {
+    padding: 0 30rpx;
+    color: @textColor;
+    font-size: 34rpx;
+
+    &-title {
+      color: @primary;
+      font-size: 34rpx;
+      font-weight: bold;
+    }
+  }
+  .bottom-btn {
+    position: fixed;
+    left: 30rpx;
+    right: 30rpx;
+    bottom: 30rpx;
+  }
+</style>

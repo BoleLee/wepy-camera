@@ -1,0 +1,15 @@
+{
+	"description": "A WePY project",
+	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"appid": "wxe0c83509e9b8c08d",
+	"projectname": "wepy-camera-demo",
+	"miniprogramRoot": "./dist",
+	"condition": {}
+}
